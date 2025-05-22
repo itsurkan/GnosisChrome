@@ -3,78 +3,90 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --background: 276 50% 97%; /* Light violet #F2EFF6 */
+    --foreground: 273 35% 25%; /* Darker violet for text #4D3A5E */
+
+    --card: 276 50% 99%; /* Almost white #FCFAFD */
+    --card-foreground: 273 35% 25%; /* #4D3A5E */
+
+    --popover: 276 50% 99%; /* #FCFAFD */
+    --popover-foreground: 273 35% 25%; /* #4D3A5E */
+
+    --primary: 273 35% 50%; /* Deep violet #7951A8 */
+    --primary-foreground: 276 50% 97%; /* Light violet #F2EFF6 */
+
+    --secondary: 276 50% 90%; /* Derived light violet #E8DFF3 */
+    --secondary-foreground: 273 35% 25%; /* #4D3A5E */
+
+    --muted: 276 50% 90%; /* #E8DFF3 */
+    --muted-foreground: 273 35% 40%; /* Muted violet text #6F588A */
+
+    --accent: 207 100% 73%; /* Sky blue #74B9FF */
+    --accent-foreground: 210 40% 15%; /* Dark blue text on accent #17233D */
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+
+    --border: 273 35% 85%; /* Lighter primary for borders #D4C5E3 */
+    --input: 273 35% 92%; /* Lighter primary for inputs #EBE3F1 */
+    --ring: 207 100% 73%; /* Sky blue for focus rings #74B9FF */
+
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Sidebar specific colors - updated for consistency but may not be heavily used */
+    --sidebar-background: 273 35% 15%; /* Darker violet for dark sidebar variant */
+    --sidebar-foreground: 276 50% 90%;
+    --sidebar-primary: 207 100% 73%; /* Accent blue for primary actions in sidebar */
+    --sidebar-primary-foreground: 210 40% 15%;
+    --sidebar-accent: 273 35% 25%;
+    --sidebar-accent-foreground: 276 50% 90%;
+    --sidebar-border: 273 35% 20%;
+    --sidebar-ring: 207 100% 73%;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 273 35% 10%; /* Dark violet #1D1425 */
+    --foreground: 276 50% 90%; /* Light violet text #E8DFF3 */
+
+    --card: 273 35% 12%; /* #23192D */
+    --card-foreground: 276 50% 90%; /* #E8DFF3 */
+
+    --popover: 273 35% 10%; /* #1D1425 */
+    --popover-foreground: 276 50% 90%; /* #E8DFF3 */
+
+    --primary: 273 35% 60%; /* Lighter Deep violet #936EC4 */
+    --primary-foreground: 273 35% 10%; /* Dark violet text on primary #1D1425 */
+
+    --secondary: 273 35% 15%; /* #2C2038 */
+    --secondary-foreground: 276 50% 90%; /* #E8DFF3 */
+
+    --muted: 273 35% 15%; /* #2C2038 */
+    --muted-foreground: 276 50% 60%; /* Muted light violet text #A48BCC */
+
+    --accent: 207 100% 65%; /* Slightly darker Sky blue #4AAFFF */
+    --accent-foreground: 273 35% 95%; /* Very light violet text on accent #F0EAF5 */
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --border: 273 35% 25%; /* #4D3A5E */
+    --input: 273 35% 20%; /* #3C2D4B */
+    --ring: 207 100% 65%; /* #4AAFFF */
+
+    /* Sidebar specific colors - dark theme */
+    --sidebar-background: 273 35% 8%;
+    --sidebar-foreground: 276 50% 85%;
+    --sidebar-primary: 207 100% 65%;
+    --sidebar-primary-foreground: 273 35% 95%;
+    --sidebar-accent: 273 35% 18%;
+    --sidebar-accent-foreground: 276 50% 85%;
+    --sidebar-border: 273 35% 15%;
+    --sidebar-ring: 207 100% 65%;
   }
 }
 
