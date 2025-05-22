@@ -1,7 +1,7 @@
 "use client";
 
 import type { ChunkItem } from "@/types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle }_ from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Eye, FileText, Info } from "lucide-react";
