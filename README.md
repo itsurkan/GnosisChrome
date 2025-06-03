@@ -1,23 +1,28 @@
-# AIAssist Next.js Application
+# AIAssist Next.js Application & Chrome Extension
 
 This is a Next.js application that simulates the UI and core logic for **AIAssist**, a conceptual tool designed to be a Chrome Extension.
+**Initial files for the Chrome Extension part have been scaffolded in the `public` directory (`manifest.json`, `popup.html`, `background.js`, `content_script.js`).**
 
 ## App Overview
 
 AIAssist aims to help users by allowing them to:
-1.  Log in (simulated via Google Auth in this Next.js app).
-2.  Access and search their local files (mocked interaction with `localhost:8000`).
+1.  Log in (simulated via Google Auth in this Next.js app, and via `chrome.identity` in the extension context).
+2.  Access and search their local files (mocked interaction with `localhost:8000` or via background script in extension).
 3.  Select relevant text chunks from these files.
 4.  Use an AI reasoning tool to determine if these chunks should be injected into their current chat query on platforms like ChatGPT, Grok Chat, or Gemini.
 5.  Prepare the combined text (query + chunks) for easy attachment to the chat.
 
-## Core Features (Simulated in this Next.js App)
+## Core Features (Simulated in Next.js / Implemented in Extension)
 
-*   **Google Auth Simulation**: Users can "log in" to the application.
-*   **File Display & Search**: Fetches and displays a list of mock files. Users can search these files (mocked API returns text chunks).
+*   **Google Auth**: 
+    *   Next.js: Simulated login.
+    *   Extension: Uses `chrome.identity.getAuthToken`. A basic flow is started in `public/popup.js`.
+*   **File Display & Search**: 
+    *   Next.js: Fetches and displays a list of mock files from `src/lib/api.ts`.
+    *   Extension: Would involve `background.js` making requests to `localhost:8000` (or a remote server) and `popup.js` or a dedicated UI displaying results.
 *   **Contextual Chunk Selection**: Users can select relevant text chunks from search results.
-*   **AI Query Injection Analysis**: Users input their current chat query. An AI tool (`injectAiQuery` flow) analyzes whether the selected chunks are relevant to the query.
-*   **Text Preparation**: If AI recommends injection, the app prepares the combined text (original query + selected chunks) and provides a "Copy to Clipboard" option.
+*   **AI Query Injection Analysis**: Users input their current chat query. An AI tool (`injectAiQuery` flow) analyzes whether the selected chunks are relevant to the query. This Genkit flow would ideally be called from `background.js`.
+*   **Text Preparation**: If AI recommends injection, the app prepares the combined text. `content_script.js` can be used to paste text into chat inputs.
 
 ## UI Style
 
@@ -28,7 +33,7 @@ AIAssist aims to help users by allowing them to:
 *   **Iconography**: Minimalist icons (Lucide React).
 *   **Layout**: Simple, intuitive single-page application feel for the main dashboard.
 
-## Running This Next.js Application
+## Running This Next.js Application (For UI Simulation)
 
 1.  **Install dependencies**:
     ```bash
@@ -40,21 +45,41 @@ AIAssist aims to help users by allowing them to:
     ```
     The application will be available at `http://localhost:9002` (or the port specified in `package.json`).
 
-## Important Note: Chrome Extension Context
+## Building and Running the Chrome Extension
+
+1.  **Create Icons**: Place `icon16.png`, `icon48.png`, and `icon128.png` in the `public/icons/` directory.
+2.  **Adapt UI for Popup**:
+    *   The current `public/popup.html` is a placeholder.
+    *   To use the UI from the Next.js app (e.g., `/dashboard`), you need to:
+        *   Option A: Build your Next.js dashboard page into static HTML, JS, and CSS files.
+        *   Place these built files (e.g., `dashboard.html` and its assets) into the `public` folder.
+        *   Update `public/manifest.json`'s `"action": {"default_popup": "dashboard.html"}`.
+        *   Ensure `dashboard.html` and its assets are listed in `web_accessible_resources` in `manifest.json`.
+        *   This approach requires careful handling of routing, state management, and API calls within the extension's popup context.
+    *   Alternatively, recreate a simpler UI directly in `public/popup.html` and `public/popup.js` using vanilla JavaScript or a lightweight library, and have it communicate with `background.js` for data and logic.
+3.  **Develop Extension Logic**:
+    *   Implement actual Google Sign-In using `chrome.identity.getAuthToken` in `public/popup.js`.
+    *   Implement API calls to `localhost:8000` (or your backend) from `public/background.js`, passing the auth token.
+    *   Develop `public/content_script.js` to interact with chat platforms (e.g., inject buttons, paste text).
+4.  **Load the Extension in Chrome**:
+    *   Open Chrome and go to `chrome://extensions`.
+    *   Enable "Developer mode".
+    *   Click "Load unpacked".
+    *   Select the `public` directory (or the root directory of your project if you adjust paths in `manifest.json` to be relative to the root, which is more standard for extensions). For simplicity with Next.js structure, using `public` as the extension root for loading is an initial step. A better approach for a final extension would be a build step that copies all necessary files (manifest, scripts, icons, built UI assets) to a dedicated `dist/extension` folder.
+5.  **Packaging**: Once development is complete, use the "Pack extension" button on the `chrome://extensions` page to create a `.crx` file for distribution.
+
+## Important Note: Chrome Extension Context (Original from Next.js setup)
 
 This Next.js application **simulates** the user interface and some of the logic that would be part of the AIAssist Chrome Extension's popup or options page.
 
-To build the actual Chrome Extension, the following would be required:
+To build the actual Chrome Extension, the following would be required (summary from above, detailed in the extension files):
 
-*   **Manifest File (`manifest.json`)**: Defines the extension's properties, permissions (like `identity` for Google Auth, `storage`, `activeTab`, access to specific websites), content scripts, background scripts, and popup page.
-*   **Content Scripts**: JavaScript files injected into web pages (e.g., `chatgpt.com`). These would be responsible for:
-    *   Injecting the "AIAssist" button near chat input fields.
-    *   Communicating with the popup/background script to trigger actions.
-    *   Receiving text from the popup and pasting it into the chat input field on the active page.
-*   **Background Script**: Handles long-running tasks, manages state, and facilitates communication between content scripts and the popup. It would also handle actual API calls to `localhost:8000` (or a remote server).
-*   **Popup UI**: The UI developed in this Next.js app (specifically the `/dashboard` page and its components) could be adapted and bundled to serve as the extension's popup HTML page. This might involve building the Next.js app and then referencing its static assets in the manifest.
-*   **Authentication**: Use `chrome.identity.getAuthToken` for Google Sign-In within the extension. The obtained token would then be used for secure API calls.
-*   **API Calls**: Make actual `fetch` requests from the extension's background script or popup to `localhost:8000/files` and `localhost:8000/search`, including the authentication token in the headers.
-*   **Packaging**: The final extension would be packaged as a `.crx` file for distribution or loaded as an unpacked extension during development.
+*   **Manifest File (`public/manifest.json`)**: Defines properties, permissions, scripts, popup. (Initial version created)
+*   **Content Scripts (`public/content_script.js`)**: Injected into web pages. (Initial version created)
+*   **Background Script (`public/background.js`)**: Handles tasks, state, communication. (Initial version created)
+*   **Popup UI (`public/popup.html`, `public/popup.js`)**: UI for the extension popup. (Initial simple version created, requires adaptation of Next.js UI)
+*   **Authentication**: Use `chrome.identity.getAuthToken`.
+*   **API Calls**: `fetch` from background script.
+*   **Packaging**: Create `.crx` file.
 
-This Next.js project provides a solid foundation for the UI/UX and client-side logic of the AIAssist tool.
+This Next.js project provides a solid foundation for the UI/UX, and the newly added files in `public` provide the starting point for the Chrome Extension structure.
