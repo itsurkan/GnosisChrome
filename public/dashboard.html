@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AIAssist Dashboard</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" class="logo">
+        <defs>
+          <linearGradient id="logoGradientPopup" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color: #7951A8; stop-opacity: 1" />
+            <stop offset="100%" style="stop-color: #74B9FF; stop-opacity: 1" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#logoGradientPopup)" d="M50 10 L15 35 L15 85 L50 95 L85 85 L85 35 Z M50 20 L75 35 L75 75 L50 85 L25 75 L25 35 Z" />
+        <text x="50" y="62" font-size="30" font-weight="bold" fill="#F2EFF6" text-anchor="middle" font-family="sans-serif">AI</text>
+      </svg>
+      <h1>AIAssist</h1>
+      <div id="auth-status">
+        <button id="login-button">Sign in with Google</button>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Access Your Files</h2>
+        <p>Search your local documents and inject relevant information into your chats.</p>
+      </div>
+      <div class="card-content">
+        <div class="input-group">
+          <input type="search" id="search-query-input" placeholder="Search file contents or names..." />
+          <button id="search-button">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="search-results-card" style="display: none;">
+      <div class="card-header">
+        <h2>Search Results (Select Chunks)</h2>
+        <p>Relevant text snippets found. Select chunks to analyze with AI.</p>
+      </div>
+      <div class="card-content">
+        <div id="chunks-container" class="scroll-area">
+          <!-- Chunks will be dynamically added here -->
+          <p id="no-chunks-message">Perform a search to see results.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>AI Context Injection</h2>
+        <p>Enter your current chat query and analyze it with selected document chunks.</p>
+      </div>
+      <div class="card-content">
+        <div>
+          <label for="current-user-query">Your Current Chat Query</label>
+          <textarea id="current-user-query" placeholder="e.g., What were the key takeaways from the last client meeting?" rows="3"></textarea>
+        </div>
+        <button id="analyze-button" class="full-width">Analyze with AI</button>
+
+        <div id="ai-analysis-result-section" style="display: none;" class="sub-card">
+          <h3>AI Recommendation</h3>
+          <p id="ai-should-inject"></p>
+          <p id="ai-reason"></p>
+          <button id="prepare-text-button" style="display: none;" class="full-width accent-button">Prepare Text for Chat</button>
+        </div>
+
+        <div id="prepared-text-section" style="display: none;" class="pt-4">
+          <label for="text-to-attach">Prepared Text for Chat</label>
+          <textarea id="text-to-attach" readonly rows="6"></textarea>
+          <button id="copy-button" class="full-width outline-button">Copy to Clipboard</button>
+        </div>
+      </div>
+    </div>
+    <div id="toast-notification" class="toast" style="display:none;">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+  <script src="dashboard.js"></script>
+</body>
+</html>
