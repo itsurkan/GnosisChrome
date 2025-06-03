@@ -33,11 +33,11 @@ if (loginButton) {
     
     // Example: Get Auth Token
     chrome.identity.getAuthToken({ interactive: true }, function(token) {
-      if (chrome.runtime.lastError || !token) {
-        console.error("Google Auth Error:", chrome.runtime.lastError);
-        userInfoDisplay.textContent = 'Login failed. See console.';
-        return;
-      }
+      // if (chrome.runtime.lastError || !token) {
+      //   console.error("Google Auth Error:", chrome.runtime.lastError.JSON);
+      //   userInfoDisplay.textContent = 'Login failed. See console.';
+      //   return;
+      // }
       console.log("Acquired token:", token);
       // Simulate fetching user profile with this token (mocked for now)
       // In a real scenario, you'd call your backend or Google's userinfo endpoint
