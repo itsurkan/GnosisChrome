@@ -1,0 +1,223 @@
+/* Mimicking Tailwind and ShadCN theme from globals.css */
+body {
+  font-family: sans-serif; /* Simplified font stack */
+  background-color: #F2EFF6; /* --background */
+  color: #4D3A5E; /* --foreground */
+  margin: 0;
+  padding: 8px;
+  width: 380px; /* Typical popup width */
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #D4C5E3; /* --border */
+}
+
+.app-header h1 {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: 0;
+  color: #4D3A5E; /* --foreground */
+}
+
+.app-header .logo {
+  color: #7951A8; /* --primary */
+}
+
+#auth-status {
+  margin-left: auto;
+}
+
+#auth-status span {
+  font-size: 0.8em;
+}
+
+.card {
+  background-color: #FCFAFD; /* --card */
+  border: 1px solid #D4C5E3; /* --border */
+  border-radius: 0.5rem; /* --radius */
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+}
+
+.card-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #D4C5E3; /* --border */
+}
+
+.card-header h2 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: #4D3A5E; /* --card-foreground */
+}
+
+.card-header p {
+  font-size: 0.85em;
+  color: #6F588A; /* --muted-foreground */
+  margin: 0;
+}
+
+.card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+}
+
+input[type="search"],
+textarea {
+  flex-grow: 1;
+  padding: 8px 10px;
+  border: 1px solid #EBE3F1; /* --input */
+  border-radius: 0.375rem; /* md */
+  font-size: 0.9em;
+  background-color: #F2EFF6; /* --background to match theme slightly better */
+}
+input[type="search"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #74B9FF; /* --ring as border */
+  box-shadow: 0 0 0 1px #74B9FF;
+}
+
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 0.375rem; /* md */
+  font-size: 0.9em;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #7951A8; /* --primary */
+  color: #F2EFF6; /* --primary-foreground */
+  transition: background-color 0.2s;
+}
+button:hover {
+  background-color: #6A4693; /* lighten(--primary, 10%) approx */
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.full-width {
+  width: 100%;
+}
+
+button.accent-button {
+  background-color: #74B9FF; /* --accent */
+  color: #17233D; /* --accent-foreground */
+}
+button.accent-button:hover {
+  background-color: #5FAEFD;
+}
+
+button.outline-button {
+  background-color: transparent;
+  color: #7951A8; /* --primary */
+  border: 1px solid #7951A8; /* --primary */
+}
+button.outline-button:hover {
+  background-color: #F2EFF6; /* --background for hover on outline */
+}
+
+
+label {
+  display: block;
+  font-size: 0.85em;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.scroll-area {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #EBE3F1; /* --input */
+  border-radius: 0.375rem;
+  padding: 8px;
+  background-color: #F2EFF6; /* --background */
+}
+
+.chunk-item {
+  padding: 8px;
+  border: 1px solid #D4C5E3; /* --border */
+  border-radius: 0.375rem;
+  margin-bottom: 6px;
+  background-color: #FCFAFD; /* --card */
+  font-size: 0.8em;
+}
+.chunk-item label {
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+}
+.chunk-item input[type="checkbox"] {
+  margin-right: 8px;
+}
+.chunk-item p {
+  font-size: 0.95em;
+  color: #4D3A5E;
+  margin: 4px 0 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.chunk-item .chunk-file-name {
+  font-weight: bold;
+  color: #6F588A; /* --muted-foreground */
+  font-size: 0.9em;
+  margin-bottom: 4px;
+}
+
+.sub-card {
+  background-color: #E8DFF3; /* --secondary */
+  padding: 12px;
+  border-radius: 0.375rem;
+  margin-top: 8px;
+}
+.sub-card h3 {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+#ai-should-inject.positive {
+  color: #16a34a; /* green-600 */
+  font-weight: bold;
+}
+#ai-should-inject.negative {
+  color: #dc2626; /* red-600 */
+  font-weight: bold;
+}
+
+.pt-4 {
+  padding-top: 16px;
+}
+
+/* Basic Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  font-size: 0.9em;
+}

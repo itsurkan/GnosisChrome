@@ -1,28 +1,32 @@
 {
   "manifest_version": 3,
-  "name": "AIAssist Extension",
+  "name": "AIAssist",
   "version": "0.1.0",
   "description": "Enhance your chat experience with AI-powered document integration.",
   "permissions": [
-    "identity",
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "identity"
   ],
   "host_permissions": [
+    "*://*.openai.com/*",
     "*://*.chatgpt.com/*",
-    "https://*.openai.com/*",
-    "*://*.google.com/gemini/*",
-    "*://*.grok.com/*",
-    "http://localhost:8000/*"
+    "*://*.grok.x.com/*",
+    "*://*.gemini.google.com/*"
   ],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "dashboard.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   },
   "background": {
     "service_worker": "background.js"
@@ -30,24 +34,20 @@
   "content_scripts": [
     {
       "matches": [
+        "*://*.openai.com/*",
         "*://*.chatgpt.com/*",
-        "https://*.openai.com/*",
-        "*://*.google.com/gemini/*",
-        "*://*.grok.com/*"
+        "*://*.grok.x.com/*",
+        "*://*.gemini.google.com/*"
       ],
       "js": ["content_script.js"],
       "css": ["content_script.css"]
     }
   ],
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  },
   "web_accessible_resources": [
     {
-      "resources": ["index.html", "dashboard.html"],
+      "resources": ["dashboard.html", "dashboard.css", "dashboard.js", "icons/*.png"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "key": "YOUR_EXTENSION_KEY_HERE_IF_NEEDED_FOR_ID_CONSISTENCY"
 }
